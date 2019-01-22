@@ -12,7 +12,7 @@ export default class Todos extends Component {
     inputNombre: '',
     inputSexo: '',
     inputfechaNac: '',
-    sexoChecked: false,
+    sexoChecked: '',
     edit: false,
     id: '',
     fadeIn: false,
@@ -31,6 +31,7 @@ export default class Todos extends Component {
     this.state = {
       modal: false,
       edit: false,
+      sexoChecked:false,
       inputfechaNac: date
     };
   }
@@ -87,6 +88,7 @@ export default class Todos extends Component {
   }
 
   action = () => {
+    this.limpiarInputs();
     this.toggle();
     this.setState({
       edit:false
@@ -129,7 +131,7 @@ export default class Todos extends Component {
           inputfechaNac:doc.data().edad,
           inputSexo:doc.data().sexo,
           inputEmail:doc.data().email,
-          sexoChecked: false,
+          sexoChecked: 'checked',
           edit:true,
           id:doc.id
         });
@@ -166,7 +168,7 @@ export default class Todos extends Component {
       inputSexo: '',
       inputfechaNac: '',
       inputEmail: '',
-      sexoChecked: false,
+      sexoChecked: '',
       edit: false,
       id: '',
       message: ''
@@ -198,7 +200,7 @@ export default class Todos extends Component {
   }  
 
   render() {
-    const { items, inputNombre, inputfechaNac, inputEmail, sexoChecked } = this.state;
+    const { items, inputNombre, inputSexo, inputfechaNac, inputEmail, sexoChecked } = this.state;
     return(
       <div>
         <Row>
@@ -257,13 +259,13 @@ export default class Todos extends Component {
                 <Label for="txt_sexo">Sexo</Label>
                 <FormGroup check >
                   <Label check>
-                    <Input type="radio" name="radio1" value="Femenino" checked={sexoChecked} onChange={this.radioSexo}/>{' '}
+                    <Input type="radio" name="radio1" value="Femenino" checked={inputSexo==="Femenino" ? sexoChecked : null} onChange={this.radioSexo}/>{' '}
                     Femenino
                   </Label>
                 </FormGroup>
                 <FormGroup check>
                   <Label check>
-                    <Input type="radio" name="radio1" value="Masculino" checked={sexoChecked} onChange={this.radioSexo}/>{' '}
+                    <Input type="radio" name="radio1" value="Masculino" checked={inputSexo==="Masculino" ? sexoChecked : null} onChange={this.radioSexo}/>{' '}
                     Masculino
                   </Label>
                 </FormGroup>
